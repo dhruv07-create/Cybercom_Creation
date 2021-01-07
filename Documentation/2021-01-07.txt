@@ -1,0 +1,75 @@
+Today i am doing :-
+
+--> For Undo :-
+                1) Revert:
+                      Syntax:- git revert <hex code for commit>
+   -- It is use to undo for commited items.
+                2) Reset:
+                      Syntax:- git reset <hex code (HEAD)>
+   --It move HEAD pointer to specific commite.It back any content changes to the specific Commit.
+
+		3) Checkout:-
+                      Syntext:- git ckeckout <File>
+   --It use to undo for Stagedarea's items (not commited item or files).
+
+--> Git Fetch:-
+        Syntax:- $ git fetch <Url>
+   
+   --It is used to pull the update from remote branches but Diffrence between pull and Fetch is , Fetch retrive the changes made in the remote repository without merging them to local work space.and pull merge the change autometicaly.
+    
+     --Soo Pull= Fetch + Merge
+
+--> Squash:-
+    
+    -- Is use when spoiling the branch history with every small commit might make things very hard so by useing squash we can force compres your history.
+ 
+--> For Reset:-
+  
+      Syntax:
+             $ git reset   (Reset staging area to match moost recent commit here working directory in not changing)
+	     $ git reset <commit>  ()
+ --> For Rebase:-
+       
+       Syntax:- $ git rebase
+     -- Make one by one commit from distict branches to the final commite.
+
+--> For Git interactive rebase
+        Syntax:-
+                $ git rebase -i
+      
+     -- Allow various operations like edit, rewrite, reorder, and more on existing commits.
+
+--> For Merge:-
+
+       Syntex:- $ git merge 
+
+     -- Merge the specified commit to currently active branch
+
+--> Log:-
+
+     Syntax:
+	    $ git log 
+            $ git log -<limite>    (for limit the number of commits)
+	    $ git log -- <file>	    (only Display Commits that hava the specified file )
+            $ git log --graph --decorate   (draws a text base graph for commits )
+
+ --> For BRANCHING
+     
+      -> Create Branch:-
+         
+			Syntax:
+				$ git branch <"here we can write branch name">
+         
+      -> Switch Branch:-
+			Syntax:
+				$ git checkout <branch name>
+  
+      -> Merging BRANCH:-
+			Syntax:
+				$ git merge <brach name>
+           -- Here if we in master branch run this command the branch is merge with master branch. in short in our currently brach
+ othe branch is merged.
+  
+	-> Delete Branch:-
+			Syntax:-
+				$ git branch -d <name of branch what we done a delete>
