@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practicals2</title>
+</head>
+<body>
+
+<h2>Practicals</h2>
+ 
+ <script type="text/javascript">
+ 	
+var Johnm1=89,Johnm2=120,Johnm3=103;
+var Mickm1=116,Mickm2=94,Mickm3=123;
+
+var johnTeamAverage= (Johnm1+Johnm2+Johnm3)/3;
+var mickTeamAverage= (Mickm1+Mickm2+Mickm3)/3;
+
+console.log("johnTeamAverage="+johnTeamAverage);
+console.log("mickTeamAverage="+mickTeamAverage);
+
+if(johnTeamAverage>mickTeamAverage){
+  
+  console.log("Wining Team: John "+johnTeamAverage);
+
+}else{
+
+  console.log("Wining Team: Mick "+mickTeamAverage);
+}
+
+ Johnm1=87;Johnm2=140;Johnm3=140;
+ Mickm1=106;Mickm2=104;Mickm3=13;
+
+ johnTeamAverage= (Johnm1+Johnm2+Johnm3)/3;
+ mickTeamAverage= (Mickm1+Mickm2+Mickm3)/3;
+
+console.log("johnTeamAverageByChangingValue="+johnTeamAverage);
+console.log("mickTeamAverageByChangingValue="+mickTeamAverage);
+
+if(johnTeamAverage>mickTeamAverage){
+  
+  console.log("Wining Team: John "+johnTeamAverage);
+
+}else{
+
+  console.log("Wining Team: Mick "+mickTeamAverage);
+}
+
+var av=function(Marym1,Marym2,Marym3){
+
+ //var Marym1=97,Marym2=134,Marym3=105;
+
+ maryTeamAverage= (Marym1+Marym2+Marym3)/3;
+
+ console.log("maryTeamAverage="+maryTeamAverage);
+
+ if (johnTeamAverage>mickTeamAverage &&johnTeamAverage>maryTeamAverage ) {
+
+   console.log("Wining Team: John "+johnTeamAverage);
+ }
+else if (mickTeamAverage>maryTeamAverage && mickTeamAverage>johnTeamAverage){
+
+console.log("Wining Team: Mick "+mickTeamAverage);
+
+}else{
+
+	console.log("Wining Team: Mary "+maryTeamAverage);
+}
+
+}
+
+av(97,134,105);
+
+av(120,450,40);
+
+ </script>
+
+</body>
+</html>
