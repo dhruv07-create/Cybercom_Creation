@@ -36,18 +36,35 @@
        </ul>
 
     </div>  	
-    <div style="float: left;height: 490px;margin-top: -20px;width: 80%;">
+    <div style="float: left;height: 490px;margin-top: -20px;width: 80%;" align="center">
     	
-      <div style="height: 20%;margin-top: 20px" >
+      <form >
+  
+        <input type="text" name="text1" placeholder="Name">
+        <input type="text" name="text2" placeholder="Email">
+        <input type="password" name="text3" placeholder="Password">
+        <input type="text" id="date" placeholder="mm-dd-yyyy" ><br>
+        <input type="button" name="Add User" id="ok" onclick="done()" style="visibility: visible;" value="Submit"> 
      
-     <div style="border: 1px solid black;width: 20%;text-align: center;display: inline-block;"> User <br> 29-34 <br> <200 </div>
-     <div style="border: 1px solid black;width: 20%;text-align: center; display: inline-block;" >User <br> 29-34 <br> <200 </div>
-     <div style="border: 1px solid black;width: 20%;text-align: center;display:inline-block;"> User <br> 29-34 <br> <200</div>
+   </form>
 
-      </div>
+   <br><br><br>
+
+   <table   style="border:1px solid black" border="1px" cellspacing="0" id="table">
+     <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Birthday</th>
+      <th>Age</th>
+      <th>Edit</th>
+      <th>DELETE</th>
+     </tr>
+   </table>
+     
      
   </div>
  
-<script type="text/javascript" src="dasbord.js"></script>>
+<script type="text/javascript" src="user.js"></script>>
 </body>
 </html>

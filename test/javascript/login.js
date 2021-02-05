@@ -12,11 +12,12 @@ function login(){
      if(name==localStorage.getItem("AdminName") && password==localStorage.getItem("AdminPassword"))
      {
          console.log("Admin Login");
+         localStorage.setItem("now",name);
 
    }else if (name!=null && password!=null && name==(JSON.parse(localStorage.getItem(name))).name && password==(JSON.parse(localStorage.getItem(name))).password)
    {
         document.getElementById("form").setAttribute("action","Sub-User.html");
-
+         localStorage.setItem("now",name);
    }
    else{
        console.log("incorrect User name and password !!!");
