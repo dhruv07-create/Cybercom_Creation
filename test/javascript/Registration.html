@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+	<style type="text/css">
+		
+      .spa{
+       color: red;
+      }
+
+	</style>
+</head>
+<body>
+     <div style="margin: auto; width: 300px;margin-top: 10%;">
+	<form onsubmit="return validation()" action="Login.html" >
+
+    	<input type="text" id="name" name="name" placeholder="Name"><br>
+    	 <span id="names" class="spa"></span><br><br>
+
+    	<input type="text" name="email" placeholder="Email"><br>
+    	 <span id="emails" class="spa"></span><br><br>
+   
+    	<input type="text" name="password" placeholder="Password"><br>
+    	 <span id="passwords" class="spa"></span><br><br>
+    
+    	<input type="text" name="copassword" placeholder="Copassword"><br>
+    	 <span id="copasswords" class="spa"></span><br><br>
+    	<select style="width: 178px" id="city">
+    		
+           <option value="Select city">Select city</option>
+           <option value="baroda">Baroda</option>
+           <option value="surat">Surat</option>
+           <option value="ahmedabad">Ahmedabad</option>
+
+    	</select><br>
+    	<span id="citys" style="color: red;"></span><br><br><br>
+
+        <select style="width: 180px" id="state" >
+    		
+           <option value="Select State">Select State</option>
+           <option value="gujarat">Gujarat</option>
+           <option value="maharashtra">Maharashtra</option>
+           <option value="keral">Keral</option>
+
+    	</select><br>
+      <span id="states" style="color: red;"></span><br>
+    	<input type="checkbox" name="term" value="yes">Term & Conditions<br>
+    	<span  id="checkboxs" style="color: red;"></span><br><br><br>
+         
+ 		<input type="submit" name="submit" value="submit" style="background-color: orange;border-radius: 20px;visibility: visible;"><br><br>
+
+    <span id="message" style="color: red;"></span>
+      </form>
+      </div>
+
+      <script type="text/javascript" src="Registration.js"></script>
+</body>
+</html>
