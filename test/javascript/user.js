@@ -1,11 +1,72 @@
-  
+  function name1(){
+
+document.getElementById("h").innerHTML="Hello, "+localStorage.getItem("now");
+
+}
+
  	  var table=document.getElementById("table");
     var bu=document.getElementById("ok");
     var row1=1;
     var count=1;
      var index=1;
 
-   
+   function validate(){
+      var imp=true;
+      var name=document.getElementsByName("text1")[0].value;
+      var email=document.getElementsByName("text2")[0].value;
+      var password=document.getElementsByName("text3")[0].value;
+      var date=document.getElementById("date");
+
+
+       var nameche=/^[A-Za-z ]{3,18}$/;
+        var emailche=/^[A-Za-z0-9_]{1,}[@]{1}[a-z]{3,}[\.]{1}[a-z\.]{2,6}$/;
+        var passwordche=/^[0-9]{6}$/;
+        var dateche=/^[0-9]{1,2}[\/]{1}[0-9]{1,2}[\/][0-9]{4}$/;
+
+           if(nameche.test(name))
+     {
+        
+            document.getElementById("names").innerHTML="";
+     }else
+     {
+        document.getElementById("names").innerHTML="*";
+        imp=false;
+     }
+
+           if(emailche.test(email))
+       {
+              document.getElementById("emails").innerHTML="";
+          
+       }else
+       {
+          document.getElementById("emails").innerHTML="*";
+          imp=false;
+       }
+
+        if(passwordche.test(password))
+   {
+      
+            document.getElementById("passwords").innerHTML="";
+
+   }else
+   {
+      document.getElementById("passwords").innerHTML="*";
+       imp=false;
+   }
+
+    if(dateche.test(date.value))
+   {
+            document.getElementById("dates").innerHTML="";
+
+   }else
+   {
+      document.getElementById("dates").innerHTML="*";
+       imp=false;
+   }
+
+  if(imp)
+    done();
+   }
     function done()
     {
      
@@ -37,23 +98,34 @@
         cell6.innerHTML='<u color="blue">Edit</u>';
         cell7.innerHTML='<u color="blue">Delete</u>';
 
-         localStorage.setItem(row1+"name",name);
-         localStorage.setItem(row1+"email",email);
-         localStorage.setItem(row1+"password",password);
-         localStorage.setItem(row1+"birthday",birthday);
+         var temp=new Object();
+         temp.name=name;
+         temp.password=password;
+         temp.birthday=birthday;
+         temp.timestart=(new Date()).getTime();
 
-        /* localStorage.setItem(name+"u",name);
-         localStorage.setItem(name+"e",email);*/
+         var month=(new Date()).getMonth();
+
+         var day=(new Date()).getDate();
+
+         var year=(new Date()).getFullYear();
+
+         var date=month+"/"+day+"/"+year;
+         
+          temp.logindate=date;
+         
+         localStorage.setItem(name,JSON.stringify(temp));
+        
 
         
             for(var x=1;x<table.rows.length;x++)
             {
                table.rows[x].cells[5].onclick=function(){
 
-                  document.getElementsByName("name1")[0].value=localStorage.getItem(this.parentElement.rowIndex+"name");
-                  document.getElementsByName("email2")[0].value=localStorage.getItem(this.parentElement.rowIndex+"email");
-                  document.getElementsByName("password2")[0].value=localStorage.getItem(this.parentElement.rowIndex+"password");
-                  document.getElementsByName("birthday4")[0].value=localStorage.getItem(this.parentElement.rowIndex+"birthday");
+                  document.getElementsByName("text1")[0].value=table.rows[this.parentElement.rowIndex].cells[0].innerHTML;    //localStorage.getItem(this.parentElement.rowIndex+"name");
+                  document.getElementsByName("text2")[0].value=table.rows[this.parentElement.rowIndex].cells[1].innerHTML;
+                  document.getElementsByName("text3")[0].value=table.rows[this.parentElement.rowIndex].cells[2].innerHTML;
+                  document.getElementById("date").value=table.rows[this.parentElement.rowIndex].cells[4].innerHTML;
 
 
 
@@ -72,9 +144,13 @@
             {
                table.rows[j].cells[6].onclick=function(){
 
-                  localStorage.removeItem(this.parentElement.rowIndex+"name");
-                  localStorage.removeItem(this.parentElement.rowIndex+"email");
+                
+                  localStorage.removeItem(table.rows[(this.parentElement.rowIndex)].cells[0].innerHTML);
+                  console.log("deleting row name:"+table.rows[(this.parentElement.rowIndex)].cells[0]);
+                   
                   table.deleteRow(this.parentElement.rowIndex);
+
+
                   row1--;
                   
                }
@@ -93,11 +169,23 @@
         var bu=document.getElementById("ok");
       var name=document.getElementsByName("text1")[0].value;
       var email=document.getElementsByName("text2")[0].value;
+      var password=document.getElementsByName("text3")[0].value;
+      var birthday=document.getElementById("date").value;
+     
+     var time=new Date(birthday);
+
+     var age=((new Date()).getFullYear())-(time.getFullYear());
+
 
         table.rows[index].cells[0].innerHTML=name;
         table.rows[index].cells[1].innerHTML=email;
-        table.rows[index].cells[2].innerHTML='<u color="blue">Edit</u>';
-        table.rows[index].cells[3].innerHTML='<u color="blue">Delete</u>';
+
+        table.rows[index].cells[2].innerHTML=password;
+        table.rows[index].cells[3].innerHTML=birthday;
+
+        table.rows[index].cells[4].innerHTML=age;
+        table.rows[index].cells[5].innerHTML='<u color="blue">Edit</u>';
+        table.rows[index].cells[6].innerHTML='<u color="blue">Delete</u>';
       
       document.getElementById("ok1").setAttribute("id","ok");
                   document.getElementById("ok").setAttribute("onclick","done()");

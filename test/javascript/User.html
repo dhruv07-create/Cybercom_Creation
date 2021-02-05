@@ -15,7 +15,7 @@
 
 	</style>
 </head>
-<body onload="name()">
+<body onload="name1()">
 
   <div id="mainDiv">
  
@@ -29,7 +29,7 @@
        	 
          <li><a href="User.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Users</a></li>
        	 
-         <li><a href="UserSession.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Login<br>Session</a></li>
+         <li><a href="UserSession.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">LoginSession</a></li>
        	 
          <li><a href="Login.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Logout</a></li>
        
@@ -38,13 +38,17 @@
     </div>  	
     <div style="float: left;height: 490px;margin-top: -20px;width: 80%;" align="center">
     	
-      <form >
+      <form  style="margin-top: 80px;">
   
         <input type="text" name="text1" placeholder="Name">
+        <span id="names" style="color: red"></span>
         <input type="text" name="text2" placeholder="Email">
+        <span id="emails" style="color: red"></span>
         <input type="password" name="text3" placeholder="Password">
-        <input type="text" id="date" placeholder="mm-dd-yyyy" ><br>
-        <input type="button" name="Add User" id="ok" onclick="done()" style="visibility: visible;" value="Submit"> 
+        <span id="passwords" style="color: red"></span>
+        <input type="text" id="date" placeholder="mm/dd/yyyy" >
+        <span id="dates" style="color: red"></span><br><br>
+        <input type="button" name="Add User" id="ok" onclick="validate()" style="visibility: visible;background-color: orange;border-radius: 10px;border-color: white;width: 150px" value="Submit"> 
      
    </form>
 
