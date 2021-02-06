@@ -1,8 +1,10 @@
+
 if(localStorage.getItem("AdminName"))
   {
       document.getElementsByName("submit")[0].style.visibility="hidden";
-      document.getElementById("message").innerHTML="*Admin Already Registered"
+      document.getElementById("message").innerHTML="*Admin Already Registered";
   }
+
 
 function validation()
 {
@@ -37,7 +39,7 @@ function validation()
     for(var i=0;i<term.length;i++){
       if(term[i].checked)
       {
-        console.log(car[i].value);
+        console.log(term[i].value);
         term=term[i].value;
       }
     }
@@ -52,6 +54,7 @@ function validation()
    if(nameche.test(name.value))
    {
    	  localStorage.setItem("AdminName",name.value);
+      console.log("Data setting name");
           document.getElementById("names").innerHTML="";
    }else
    {
@@ -74,6 +77,7 @@ function validation()
     if(passwordche.test(password.value))
    {
    	  localStorage.setItem("AdminPassword",password.value);
+        console.log("date setting password ");
             document.getElementById("passwords").innerHTML="";
 
    }else
@@ -120,24 +124,6 @@ function validation()
     imp=false;
   }
    
- /*localStorage.setItem("counter",0);
- console.log(parseInt(localStorage.getItem("counter")));
-
-  var userName=name.value;
-  var userPassword=password.value;
-  var tempS= storage[parseInt(localStorage.getItem("counter"))].new Object();
-
-   tempS.userName=name.value;
-   temp.userPassword=password.value;*/
  
-  /*storage.""+ userName=new Object();
-  storage.userName.name=name.value;
-  storage.userName.email=email.value;
-  storage.userName.password=password.value;
-
-  localStorage.setItem("data",JSON.stringify(storage));
-
-  var temp=localStorage.getItem("data");
-  document.write((JSON.parse(temp)).name);*/
   return imp;
 }

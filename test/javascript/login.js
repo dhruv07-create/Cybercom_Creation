@@ -1,5 +1,6 @@
 function login(){
 
+// just for checking
 	var obja=new Object();
 	obja.name="Hiren";
 	obja.password="123456";
@@ -9,7 +10,7 @@ function login(){
 
   var password=document.getElementById("Password").value;
 
-     if(name==localStorage.getItem("AdminName") && password==localStorage.getItem("AdminPassword"))
+     if( (name==localStorage.getItem("AdminName") )&&( password==localStorage.getItem("AdminPassword")) )
      {
          console.log("Admin Login");
          localStorage.setItem("now",name);
@@ -27,4 +28,3 @@ function login(){
   return return1;
 }
 
-console.log("hi");

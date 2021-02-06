@@ -1,6 +1,8 @@
+
   function name1(){
 
 document.getElementById("h").innerHTML="Hello, "+localStorage.getItem("now");
+
 
 }
 
@@ -104,7 +106,7 @@ document.getElementById("h").innerHTML="Hello, "+localStorage.getItem("now");
          temp.birthday=birthday;
          temp.timestart=(new Date()).getTime();
 
-         var month=(new Date()).getMonth();
+         var month=(new Date()).getMonth()+1;
 
          var day=(new Date()).getDate();
 
@@ -116,7 +118,9 @@ document.getElementById("h").innerHTML="Hello, "+localStorage.getItem("now");
          
          localStorage.setItem(name,JSON.stringify(temp));
         
-
+          localStorage.setItem("Array",detail);
+          
+          var temp1=detail;
         
             for(var x=1;x<table.rows.length;x++)
             {

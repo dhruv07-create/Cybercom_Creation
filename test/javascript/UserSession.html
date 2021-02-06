@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+      
+      #mainDiv {
+
+            height: 490px;
+            width: 80%;
+            margin: 90px auto;
+            border: 3px solid black;            
+      }		
+  
+
+	</style>
+</head>
+<body onload="name()">
+
+  <div id="mainDiv">
+ 
+    <div style="float: left;height: 490px;width: 20%;background-color: orange">
+    	
+      <h3 align="center" id="h">Hello,</h3>
+      
+       <ul style="list-style-type: none;">
+       
+       	 <li><a href="Dasbord.html" style="text-decoration: none;margin-left: 20px;margin-top: 20px;" >Dashboard</a></li>
+       	 
+         <li><a href="User.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Users</a></li>
+       	 
+         <li><a href="UserSession.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Login-Session</a></li>
+       	 
+         <li><a href="Login.html" style="margin-left: 20px;margin-top: 20px;text-decoration: none;">Logout</a></li>
+       
+       </ul>
+
+    </div>  	
+      <div  align="center" style="margin-top: 10%">
+  <table  style="border:1px solid black" border="1px" cellspacing="0" id="table">
+     <tr>
+      <th>Name</th>
+      <th>Login Date Time</th>
+      <th>Logout Date Time</th>
+    
+     </tr>
+   </table>
+
+  </div>
+</div>
+ 
+<script type="text/javascript" >
+  
+
+  function name()
+  {
+  var name=localStorage.getItem("now");
+  document.getElementById("h").innerHTML="Hello, "+name;
+}
+</script>>
+</body>
+</html>
