@@ -1,6 +1,6 @@
 <?php
 namespace Controller\Admin;
-
+session_start();
       ob_start();
 
 \Mage::loadFileByClassName('Controller\\Core\\Admin');
@@ -15,13 +15,14 @@ class Admin extends \Controller\Core\Admin
     {
   
     try{
-
+        $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
         $layout=$this->getLayout(); 
-        $layout->setTemplate('./View/core/layout/one_column.php');
-        $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Grid'),'grid');
+        $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Grid')->setPager($pager),'grid');
         echo $layout->toHtml();
           
-         /*$grid=\Mage::getModel('Block\\Admin\\Admin\\Grid')->toHtml();
+     /*    $grid=\Mage::getModel('Block\\Admin\\Admin\\Grid')->setPager($pager)->toHtml();
         $responce=[
            'message'=>'Successfully',
            'element'=>[
@@ -30,10 +31,10 @@ class Admin extends \Controller\Core\Admin
           ]
         ];
 
-        header('Content-Type:Application/json');
+        header('Content-Type:application/json');
 
-        echo json_encode($responce);
-         */    
+        echo json_encode($responce);*/
+             
           
       } catch (Exception $e) 
       {
@@ -84,7 +85,6 @@ class Admin extends \Controller\Core\Admin
           $tableRow=\Mage::getModel('Model\\Admin');
           $layout= $this->getLayout();
           $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Edit',true)->setTableRow($tableRow),'edit');
-        //  $layout->getLeft()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Edit\\Tabs'),'left');
           echo  $layout->toHtml();  
 
 /*         $edit=\Mage::getModel('Block\Admin\Admin\Edit\Tabs\Form')->toHtml();
@@ -112,32 +112,24 @@ class Admin extends \Controller\Core\Admin
           $tableRow->load($id);
           $layout= $this->getLayout();
           $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Edit')->setTableRow($tableRow),'edit');
-        //  $layout->getLeft()->addChild(\Mage::getBlock('Block\\Admin\\Admin\\Edit\\Tabs'),'left');
           echo  $layout->toHtml();  
 
-        /* $edit=\Mage::getModel('Block\\Admin\\Admin\\Edit\\Tabs\\Form')->toHtml();
-         $left=\Mage::getModel('Block\\Admin\\Admin\\Edit\\Tabs')->toHtml();
+        /* $edit=\Mage::getBlock('Block\\Admin\\Admin\\Edit')->setTableRow($tableRow)->toHtml();
 
         $responce=[
            'message'=>'Successfully',
            'element'=>[
 
-            [
             'selectore'=>'#content',
             'html'=>$edit
-            ],
-            [
-              'selectore'=>'#left',
-              'html'=>$left
-            ]
           ]
         ];
 
-        header('Content-Type:Application/json');
+        header('Content-Type:application/json');
 
-        echo json_encode($responce);*/
+        echo json_encode($responce);
 
-
+*/
          
 
      } catch (Exception $e) 
@@ -157,19 +149,15 @@ class Admin extends \Controller\Core\Admin
 
             if($this->getRequest()->getPost('s')!=null)
             {
-
               date_default_timezone_set('Asia/Kolkata');
 
                 $pro= $this->getModelObj();
 
                  if($id=$this->getRequest()->getGet('id'))
                  {
-
-                 $pro->setData($this->getRequest()->getPost('admin')); 
-
-                 $primary=$pro->getPrimaryKey();
-
-                 $pro->$primary=$id;     
+                     
+                 $pro->load($id);     
+                 $pro->setData($this->getRequest()->getPost('admin'));
 
              if($pro->save())
               {
@@ -180,10 +168,27 @@ class Admin extends \Controller\Core\Admin
               }
 
                echo  'edit';
+            
+             
+             $this->redirect('grid');
 
+             /*   $pager=\Mage::getController('Controller\Core\Pager');
+                $id=$this->getRequest()->getGet('page');
+                $pager->setCurrentPage($id);
+                  
+                 $grid=\Mage::getModel('Block\\Admin\\Admin\\Grid')->setPager($pager)->toHtml();
+                $responce=[
+                   'message'=>'Successfully',
+                   'element'=>[
+                    'selectore'=>'#content',
+                    'html'=>$grid
+                  ]
+                ];
 
-              $this->redirect('grid');
+                header('Content-Type:application/json');
 
+                echo json_encode($responce);
+*/
             }else
             {
              
@@ -198,6 +203,23 @@ class Admin extends \Controller\Core\Admin
                }
               
               $this->redirect('grid');
+
+           /*    $pager=\Mage::getController('Controller\Core\Pager');
+                $id=$this->getRequest()->getGet('page');
+                $pager->setCurrentPage($id);
+                  
+                 $grid=\Mage::getModel('Block\\Admin\\Admin\\Grid')->setPager($pager)->toHtml();
+                $responce=[
+                   'message'=>'Successfully',
+                   'element'=>[
+                    'selectore'=>'#content',
+                    'html'=>$grid
+                  ]
+                ];
+
+                header('Content-Type:application/json');
+
+                echo json_encode($responce);*/
             }
 
             } 
@@ -207,6 +229,7 @@ class Admin extends \Controller\Core\Admin
      {
 
         $this->redirect('grid');
+
        
      }
 
@@ -243,11 +266,47 @@ class Admin extends \Controller\Core\Admin
         } catch (Exception $e) 
         {
 
-         $this->redirect('grid');
-      
+              /* $pager=\Mage::getController('Controller\Core\Pager');
+                $id=$this->getRequest()->getGet('page');
+                $pager->setCurrentPage($id);
+
+                 $grid=\Mage::getModel('Block\\Admin\\Admin\\Grid')->setPager($pager)->toHtml();
+              $responce=[
+                 'message'=>'Successfully',
+                 'element'=>[
+                  'selectore'=>'#content',
+                  'html'=>$grid
+                ]
+              ];
+
+         header('Content-Type:application/json');
+
+        echo json_encode($responce);
+*/      
         }
 
 
+   }
+
+   public function filterAction()
+   {    
+       $filter=\Mage::getModel('Model\Core\Filter'); 
+         
+        $filter->setFilter($this->getRequest()->getPost('filter'));
+        $k=$_GET['c'];
+        
+      $this->redirect('grid');
+   }
+
+   public function testAction()
+   {
+       $attributes=\Mage::getModel("Model\Attribute")->fetchAll();
+
+       foreach ($attributes->getData()  as $key => $attribute) 
+       {
+            echo "<pre>";
+            print_r($attribute->getOptions());
+       }
    }
 
 }

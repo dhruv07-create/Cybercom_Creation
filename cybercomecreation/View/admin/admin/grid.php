@@ -1,11 +1,11 @@
 <?php
 
-  $obj=\Mage::getModel('Model\\Admin');
+  $data=$this->getCollection();
+  $columns=$this->getColumns();
+  $actions=$this->getActions();
+  $buttons=$this->getButtons();
 
-  $status=$obj->getStatusOption();
 
-  $data=$this->getAdminData();
-  
  ?>
 
 <html>
@@ -15,44 +15,63 @@
   <content>
   
    <div style="margin-top: 10px;">
-
-       <h5 style="float: left;" >Admin</h5><br>
+       <h5 style="float: left;" ><?php echo $this->getTitle(); ?></h5><br>
        <hr>
-       <a  href="<?php echo $this->getUrl('form'); ?>"  style="float: right;" ><button style="border:0px"class='btn btn-primary' >AddUser</button></a><br><br>
+       <?php 
+       if($buttons){        
+       foreach($buttons as $button): ?>
+       <a  href="<?php echo $this->getButtonUrl($button['method']); ?>"  style="float: right;" ><button style="border:0px" <?php echo $button['class']; ?> ><?php echo $button['lable'] ; ?></button></a>
+       <?php endforeach; 
+          }
+       ?>
+       <br><br>
 
    <table  border="1" cellspacing="0" class='table table-striped'>
 
       <thead class='thead-dark ' >
-      
-     <th align="center" >UserId</th>
-     <th align="center" >Name</th>
-     <th align="center">Password</th>
-     <th align="center">Status</th>
-     <th align="center">CreateDate</th>
-     <th align="center">Change</th>
-    
+      <tr>
+    <?php 
+     if($columns){
+    foreach ($columns as $key => $column):?>
+     
+     <th align="center" ><?php echo $column['lable']; ?></th>
+         
+    <?php endforeach; 
+        }
+    ?>  
+     <?php if($actions):?>
+     <th>action</th>
+     <?php endif; ?>
+    </tr>
     </thead>
     
     <?php
 
-    
-      foreach ($data->getData() as $value) { ?>
+       foreach ($data->getData() as $value) { ?>
         
     <tr>
 
-      <td><?php echo $value->userId;?></td>
-      <td><?php echo $value->name;?></td>
-      <td><?php echo $value->password;?></td>
-      <td><?php echo $status[$value->status];?></td>
-      <td><?php echo $value->createddate;?></td>
-      <td>
-         
-        <a href="<?php echo $this->getUrl('edit',null,['id'=>$value->userId]); ?>"><button class="btn btn-primary" >Edit</button></a> 
-        <a href="<?php echo $this->getUrl('delete',null,['id'=>$value->userId]); ?>"><button class="btn btn-danger" >Delete.</button></a> 
-
-      </td>
-
+      <?php 
+      if($columns){
+      foreach($columns as $key=>$column): 
+        if($column['type']=='image'):
+      ?>
+      <td><img src="<?php echo $this->getFieldValue($value,$column['field']);?>"></td>
+      <?php else: ?>
+      <td><?php echo $this->getFieldValue($value,$column['field']);?></td>
+     <?php endif;?>
+     <?php endforeach; 
+      } 
+     ?>
     
+    <?php if($actions){ ?> 
+     <td>
+     <?php 
+     foreach($actions as $action): ?>
+      <a href="<?php echo $this->getMethodUrl($value,$action['method']);?>" <?php echo $action['class']; ?> ><?php echo $action['lable'] ;?></a>
+     <?php endforeach;?>
+    </td>
+  <?php }?>
     </tr>
 
     <?php

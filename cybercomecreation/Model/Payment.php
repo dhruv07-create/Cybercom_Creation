@@ -20,8 +20,8 @@ class Payment extends Core\Table {
 
      return [
          
-          self::STATUS_AVAILABLE=>'Complete',
-          self::STATUS_NOT_AVAILABLE=>'Not_Complete'
+          self::STATUS_AVAILABLE=>'Available',
+          self::STATUS_NOT_AVAILABLE=>'Not_Available'
 
      ];
    

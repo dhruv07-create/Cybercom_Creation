@@ -65,6 +65,8 @@ namespace Model\Core;
    }
 
 
+
+
    public function insert($q)
    {
  
@@ -152,6 +154,12 @@ namespace Model\Core;
     
    }
 
+   public function fetchOne($sq)
+   {
+      $result=$this->getConnection()->query($sq);
+
+      return $result->num_rows;
+   }
 
   public function fetchAll($q)
   {

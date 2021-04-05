@@ -5,12 +5,13 @@ namespace Controller\Admin;
 class  Attribute extends \Controller\Core\Admin
 {
 	 public function gridAction()
-	 {
+	 {          
+	    $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
 	 	$layout=$this->getLayout();
-
 	 	$layout->setTemplate('./View/core/layout/one_column.php');
-
-	 	$layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Attribute\\grid'),'content');
+	 	$layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Attribute\\grid')->setPager($pager),'content');
 	    $this->renderLayout();
 	 }
 
@@ -99,6 +100,17 @@ class  Attribute extends \Controller\Core\Admin
 	 		echo $e->getMessage();
 	 	}
 	 }
+
+	public function filterAction()
+   {    
+       $filter=\Mage::getModel('Model\Core\Filter'); 
+         
+        $filter->setFilter($this->getRequest()->getPost('filter'));
+          
+          print_r($filter->getFilters());
+
+      $this->redirect('grid');
+   }
 }
 
 ?>

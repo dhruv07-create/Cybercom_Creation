@@ -10,6 +10,7 @@ namespace Model\Core;
   	 protected $primarykey="categoryId";
      protected $tablename="category";
      protected $adapter='';
+     protected $originalData = [];
      protected $data=[];
      
   	
@@ -19,12 +20,27 @@ namespace Model\Core;
   	}
 
 
+
+   public function setOriginalData($setOriginalData)
+   {
+     $this->originalData = $setOriginalData;
+     return $this;
+   }
+
+   public function getOriginalData()
+   {
+      return $this->originalData;
+   }
+
+public function getRow()
+ {
+    return clone $this;
+ }   
     public function insert(array $data)
     {
       
        try 
        {
-         
        
            $key=array_keys($data);
 
@@ -35,7 +51,6 @@ namespace Model\Core;
            $value="'".implode("','", $value)."'";
 
            $query="insert into {$this->getTableName()} ({$key}) values ({$value}); ";
-
            if($id = $this->getAdapter()->connection()->insert($query))
            {
                throw new \Exception("Insert Fail.");
@@ -102,8 +117,7 @@ namespace Model\Core;
               {
   
                       $query="update {$this->getTableName()} set {$key}='{$value}' where {$con};";
-                     
-                    // echo $query;
+                    
 
                       if(!$this->getAdapter()->connection()->update($query))
                       {
@@ -126,8 +140,15 @@ namespace Model\Core;
     public function save()
     {
          try{
+          $primarykey=$this->getPrimaryKey(); 
+          if(array_key_exists($primarykey,$this->getData()))
+          {
+             unset($this->data[$primarykey]);
+          }
 
-	 		if(!array_key_exists($this->getPrimaryKey(), $this->getData()))
+          $id=$this->$primarykey;
+
+	 		if(!$id)
       {
 
                $key=array_keys($this->getData());
@@ -138,29 +159,26 @@ namespace Model\Core;
 
                $value="'".implode("','", $value)."'";
 
-         $query="insert into ".$this->getTableName()." (".$key.") values (".$value.")";
-
+         $query="insert into ".$this->getTableName()." (".$key.") values (".$value.")"; 
+        
          if(!$id=$this->getAdapter()->connection()->insert($query))
-          { 
+          {  
              throw new \Exception('Insert Fail.');
           } 
 
-         echo 'insert';
 
-       }elseif(array_key_exists($this->getPrimaryKey(), $this->getData()))
+       }elseif($id)
        {
+            // $this->data=array_filter($this->data) ;
 
-     
-       	     $id=$this->data[$this->getPrimaryKey()];
-
-       	     unset($this->data[$this->getPrimaryKey()]);
+        print_r($this->data);
 
             foreach ($this->data as $key => $value) 
             {
 
-               echo $key.":".$value."<br>";
+               $key.":".$value."<br>";
          
-             echo  $q="update ".$this->getTableName()." set ".$key."='".$value."' where ".$this->getPrimaryKey()."=".$id." ;";
+           echo  $q="update ".$this->getTableName()." set ".$key."='".$value."' where ".$this->getPrimaryKey()."=".$id." ;";
 
              if(!$this->getAdapter()->connection()->update($q))
               { 
@@ -169,9 +187,9 @@ namespace Model\Core;
 
            }
 
-        echo 'Edit';
        }
      $this->load($id);
+     $this->unsetData();
 
      return $this;
 
@@ -279,12 +297,16 @@ namespace Model\Core;
 
     public function __get($ans){
 
-    	if(!array_key_exists($ans,$this->data)){
+      if(array_key_exists($ans,$this->getData()))
+      {
+         return $this->getData()[$ans];
+      }
+
+      if(array_key_exists($ans,$this->getOriginalData()))
+      {
+        return $this->getOriginalData()[$ans];
+      }
     		return null;
-    	}
-
-       return $this->data[$ans];
-
     }
 
     public function unsetData()
@@ -322,7 +344,7 @@ namespace Model\Core;
         	return false;
         }
 
-        $this->setData($resul);
+        $this->setOriginalData($resul);
 
         return $this;
  
@@ -373,18 +395,12 @@ namespace Model\Core;
 
     $session=\Mage::getModel('Model\\Admin\\Message');
       if(!$id){
+     
+           $key = $this->getPrimaryKey(); 
+           $id = $this->$key; 
 
-      	if(array_key_exists($this->getPrimaryKey(),$this->getData())){
-
-      		$id=$this->getData()[$this->getPrimaryKey()];
-
-      	}else{ 
-
-          return false;  
-        }
-
-     }
-
+      	}
+        
       $id=(int) $id;
 
     echo  $query="delete from ".$this->getTableName()." where ".$this->getPrimaryKey()."=".$id;
@@ -402,9 +418,8 @@ namespace Model\Core;
         $redirect=\Mage::getController('Controller\\Core\\Admin');
         $redirect->redirect('grid');
      }
-  }
-
-
+   }
+   
   }
 
 ?>

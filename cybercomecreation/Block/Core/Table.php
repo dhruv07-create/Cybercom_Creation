@@ -14,8 +14,19 @@ namespace Block\Core;
   protected $request='';
   protected $defaultTab=null;
   private $tableRow='';
+  protected $pager='';
   
 
+   public function setPager($pager)
+   {
+      $this->pager=$pager;
+      return $this;
+   }
+   
+   public function getPager()
+    {  
+        return $this->pager;
+    } 
 
    public function setTemplate($temp){
 
@@ -30,6 +41,7 @@ namespace Block\Core;
 
   	  return $this->templete;
   }
+  
 
 public function setDefaultTab($Tab)
 {
@@ -163,7 +175,7 @@ public function getDefaultTab()
   {
     return $this->tabs;
   }
-
+  
   public function setTabs(array $tabs)
   {
          $this->tabs=$tabs;

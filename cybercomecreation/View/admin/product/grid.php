@@ -5,6 +5,8 @@
    $obj=\Mage::getModel('Model\\Product');
 
    $arra=$obj->getStatusOption();
+
+   $pager=$this->getPager();
   
 ?>
 
@@ -77,6 +79,11 @@
     </table>
 
      </div> 
+
+  <?php  ?> 
+   <a href="<?php echo $this->getUrl(null,null,['page'=>$pager->getStart();],true) ; ?>">START</a>   
+
+ <?php ?>
 
  </content>
 

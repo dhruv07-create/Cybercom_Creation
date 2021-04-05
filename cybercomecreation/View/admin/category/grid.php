@@ -5,6 +5,9 @@
    $status=$ob->getStatusOption();
      
 ?>
+<?php 
+ $pager = $this->getPager(); 
+ ?>
 
 
 
@@ -25,9 +28,10 @@
      <th>Name</th>
      <th>Featured</th>
      <th>Status</th>
-     <th>Description</th> 
+     <th>Description</th>
      <th>pathId</th>
      <th>CreatedDate</th>
+     <th>Image</th>
      <th>Change</th> 
        </tr>
    
@@ -47,6 +51,7 @@
       <td><?php echo $value->description;?></td>
       <td><?php echo $value->pathId;?></td>
       <td><?php echo $value->createddate;?></td>
+      <td><img src="<?php echo $value->image;?>"></td>
       <td>
       	 
       	<a href="<?php echo $this->getUrl('edit',null,['id'=>$value->categoryId]); ?>"><button class="btn btn-primary" >Edit</button></a> 
@@ -70,6 +75,18 @@
 </div>
 
  </content>
+<?php if($pager->getStart()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getStart()],true); ?>" >START</a>
+<?php endif; ?> 
+<?php if($pager->getPrevious()): ?>
+<a class="btn btn-secondary"  href="<?php echo $this->getUrl(null,null,['page'=>$pager->getPrevious()],true); ?>">PREVIOUS</a>
+<?php endif; ?>
+<?php if($pager->getNext()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getNext()],true); ?>">NEXT</a>
+<?php endif; ?>
+<?php if($pager->getEnd()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getEnd()],true); ?>">END</a>
+<?php endif; ?>
 
 </body>
 </html>

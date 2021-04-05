@@ -46,7 +46,7 @@ class GroupPrice extends \Block\Core\Table
      	   	  	   		pcgp.productId='{$this->getProduct()->productId}'
 	   	  	   LEFT JOIN product p
 	   	  	   		ON pcgp.productId=p.productId
-	   	  	   		;
+    	  	   		;
 			
 	   	  	   ";
 	   	  	   $categoryGroup=\Mage::getModel('Model\\Customergroup')->fetchAll($query);

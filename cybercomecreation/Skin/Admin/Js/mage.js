@@ -90,6 +90,7 @@ Base.prototype={
        this.form= $(button).closest('form');
        this.setParams(this.form.serialize());
        this.setUrl(this.form.attr('action'));
+        alert(this.form.attr('action'));
        this.setMethod(this.form.attr('method'));  
        return this;
     },

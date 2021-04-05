@@ -5,20 +5,12 @@ namespace Controller;
 
   class Home extends Core\Customer
   {
-  	 public function gridAction(){
-
-       try {
-
-            $layout=$this->getLayout();
-            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Shipping\\Grid'),'grid');
-             $this->renderLayout();
-        
-           } catch (Exception $e) {
-        
-            echo $e->getMessage();
-       }
+  	 public function viewAction(){
+     
+      $layout=$this->getLayout();
+      $content=$layout->getContent();
+      $content->addChild(\Mage::getBlock('Block\Customer\Home\home'));
+      echo $layout->toHtml();    
   }
   }
-
-
 ?>

@@ -1,17 +1,19 @@
 
 <?php
-    
-   Mage::loadFileByClassName('Controller\\Core\\Admin'); 
- 
+
+ spl_autoload_register(__NAMESPACE__ .'\Mage::loadFileByClassName');
+      
  class Mage{
 
    public static function init(){
 
-     self::loadFileByClassName("Controller\\Core\\Front");
+     //self::loadFileByClassName("Controller\\Core\\Front");
 
         Controller\Core\Front::init();
          
    }
+
+   
 
    public static function prepareClassName($key,$namespace)
    {
@@ -25,7 +27,7 @@
 
    public static function getModel($classname){
       
-      self::loadFileByClassName($classname);
+     // self::loadFileByClassName($classname);
       $classname=str_replace("\\", ' ', $classname);
       $classname=ucwords($classname);
       $classname=str_replace(' ','\\',$classname);
@@ -35,7 +37,7 @@
 
     public static function getController($classname){
       
-      self::loadFileByClassName($classname);
+     // self::loadFileByClassName($classname);
       $classname=str_replace('\\', ' ', $classname);
       $classname=ucwords($classname);
       $classname=str_replace(' ', '\\', $classname);
@@ -47,7 +49,7 @@
       
       if(!$ton)
       { 
-      self::loadFileByClassName($classname);
+     // self::loadFileByClassName($classname);
       $classname=str_replace('\\', ' ', $classname);
       $classname=ucwords($classname);
       $classname=str_replace(' ','\\',$classname);
@@ -61,7 +63,7 @@
          return $value;
       }
 
-      self::loadFileByClassName($classname);
+     // self::loadFileByClassName($classname);
       $classname=str_replace('\\', ' ', $classname);
       $classname=ucwords($classname);
       $classname=str_replace(' ','\\',$classname);
@@ -102,6 +104,7 @@
       return getcwd().DIRECTORY_SEPARATOR.$subDir;
 
  }
+
 
 }
 

@@ -13,10 +13,12 @@ class Payment extends \Controller\Core\Admin{
   public function gridAction(){
 
        try {
-
+        $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
             $layout=$this->getLayout();
             $layout->setTemplate('./View/core/layout/one_column.php');
-            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Payment\\Grid'),'grid');
+            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Payment\\Grid')->setPager($pager),'grid');
            echo $layout->toHtml();
 
            } catch (Exception $e) {
@@ -180,6 +182,15 @@ class Payment extends \Controller\Core\Admin{
               $this->redirect('grid');
          }
 
+   }
+
+   public function filterAction()
+   {
+      $Filter=\Mage::getModel('Model\Core\filter');
+
+      $Filter->setFilter($this->getRequest()->getPost('filter'));
+
+      $this->redirect('grid');
    }
 
 }

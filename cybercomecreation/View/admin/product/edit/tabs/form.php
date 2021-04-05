@@ -1,8 +1,18 @@
  <?php 
    $result=$this->getProduct();
    $array=$result->getStatusOption();
-   
+   $categoryOptions=$this->getCategoryOptions();
 ?>
+   Category:
+   <select name="product[categoryId]" >
+    <option > select </option>
+
+    <?php foreach ($categoryOptions as $categoryId => $pathId) {?>
+
+      <option <?php if($result->categoryId == $categoryId){ echo 'selected'; } ?>  value="<?php echo $categoryId ; ?>" ><?php echo $pathId; ?> </option>
+
+    <?php }?>
+   </select><br><br>
 
     Sku:
    <input type="text" name="product[sku]" value="<?php echo $result->sku ; ?>" ><br><br>
@@ -16,7 +26,20 @@
    <input type="text" name="product[quantity]" value="<?php echo $result->quantity ; ?>"><br><br>
    Description:
    <input type="text" name="product[description]" value="<?php echo $result->description ; ?>" ><br><br>
-   Status:<br>   
+   MostPopular:
+   <select name="product[mostPopular]" >
+      <option <?php if($result->mostPopular=='yes'){ echo 'selected';} ?> value="yes" >Yes</option>
+      <option <?php if($result->mostPopular=='no'){ echo 'selected';} ?> value="no" >No</option>
+   </select><br><br>
+
+   DealProduct:
+   <select name="product[dealItem]" >
+      <option <?php if($result->dealItem=='yes'){ echo 'selected';} ?> value="yes" >Yes</option>
+      <option <?php if($result->dealItem=='no'){ echo 'selected';} ?>  value="no" >No</option>
+   </select><br><br>
+   
+   Status:<br>
+
    <select name="product[status]" >
     <option > select </option>
 

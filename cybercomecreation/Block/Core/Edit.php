@@ -81,7 +81,7 @@ class Edit extends \Block\Core\Table
          {
             return $this->getUrl('save',null,null,true);
          }    
-
+                                                      
      public function setTabClass($tabClass)
 	     {  
 	     	$this->tabClass=$tabClass;	

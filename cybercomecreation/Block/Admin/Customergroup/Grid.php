@@ -1,44 +1,152 @@
 <?php
 namespace Block\Admin\Customergroup;
- \Mage::loadFileByClassName('Block\\Core\\Table');
- \Mage::loadFileByClassName('Model\\Customergroup');
 
- class Grid extends \Block\Core\Table {
+\Mage::loadFileByClassName("Block\Core\Grid");
 
-    
-     protected $category=[];
-     protected $collection=null;
+  class Grid extends \Block\Core\Grid
+  {
 
+    public function getTitle()
+    {  return 'Customergroup';
 
-   public function __construct(){
+    }
 
-       $this->setTemplate('./View/admin/customergroup/grid.php');
-   }  
+   public function prepareCollection()
+    {
+             $customergroup=\Mage::getModel('Model\customergroup');
+     $q="SELECT * FROM {$customergroup->getTableName()}";
+      
+       if($this->getFilter()->hasFilter())
+       {
+         $q.=" where 1=1";
+         foreach ($this->getFilter()->getFilters() as $type => $filter)
+         {
+             if($type=='text')
+             {
+                foreach ($filter as $key => $value){
+                    $q .=" AND {$key} LIKE '%{$value}%' ";     
+                }
+             }
+             if($type=='number')
+             {
+                foreach ($filter as $key => $value)
+                { 
+                    $q .=" AND {$key}={$value} ";     
+                  }
+                }      
+             
 
+              if($type=='enum')
+             {
+                foreach ($filter as $key => $value) 
+                {
+                    $q .=" AND {$key}='{$value}' ";     
+                }      
+             }
+           } 
+         }
+            
+          $pager=$this->getPager();
+           $pager->setTotalRecords($customergroup->getAdapter()->fetchOne($q));
+           $pager->setRecordsPerPage(2);
+           $pager->calculate();
+           $offset=($pager->getCurrentPage()-1)*($pager->getRecordsPerPage());
 
+      $q.=" LIMIT {$offset},{$pager->getRecordsPerPage()} ";  
+            //  session_destroy();
+         $this->setCollection($customergroup->fetchAll($q));
+    } 
+public function setPager($pager)
+ {
+     $this->pager=$pager;
+     return $this;
+ }
 
-   public function setCatogoryGroups(\Model\Customergroup\Collection $collection = null ){
+ public function getPager()
+ {
+    return $this->pager;
+ } 
 
-   	  if(!$this->collection)
-        {
-               $collection=\Mage::getModel('Model\\Customergroup')->fetchAll();
-        }
-           $this->collection=$collection;
-
-   	  	return $this;   
-   }
-
-   public function getCatogoryGroups()
+   public function prepareColumns()
    {
-   	    if(!$this->collection)
-   	       {
-   	       	  $this->setCatogoryGroups();
-   	       } 	
+      $this->addColumn('goupId',
+         
+         [ 
+          'lable'=>'Group Id',
+          'field'=>'groupId'
+          ,'type'=>'number'
+         ]
+      );
 
-   	    return $this->collection;   
+      $this->addColumn('name',
+         
+         [ 
+          'lable'=>'Name',
+          'field'=>'name',
+          'type'=>'varchar'
+         ]
+      );
+
+      $this->addColumn('createddate',
+        
+         [
+          'lable'=>'CreatedDate',
+          'field'=>'createddate',
+          'type'=>'varchar'
+         ]
+      );
    }
-
  
-}
+ public function getFilter()
+ {
+    return \Mage::getModel('Model\Core\Filter');
+ }
+
+   public function prepareActions()
+    {
+      $this->addAction('Edit',
+          [
+             'lable'=>'Edit',
+             'class'=>'class="btn btn-success"',
+             'method'=>'getEditURl' 
+          ]
+      );
+       $this->addAction('Delete',
+          [
+             'lable'=>'Delete',
+             'class'=>'class="btn btn-danger"',
+             'method'=>'getDeleteURl' 
+          ]
+      );
+    } 
+
+    public function prepareButtons()
+    {
+        $this->addButton('Add'
+          ,
+          [
+            'lable'=>'AddCustomerGroup',
+            'class'=>"class='btn btn-primary'",
+            'method'=>'getAddBrandURl'
+          ]
+        );
+    }
+    
+
+    public function getEditURl($row)
+    {
+       return $this->getUrl('edit',null,['id'=>$row->groupId]);
+    }
+
+    public function getDeleteURl($row)
+      {
+         return $this->getUrl('delete',null,['id'=>$row->groupId]); 
+      }
+
+    public function getAddBrandURl()
+    {
+       return $this->getUrl('form');
+    }       
+  }
 
 ?>

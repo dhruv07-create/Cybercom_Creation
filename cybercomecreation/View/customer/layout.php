@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
+    
+    <?php  echo $this->createBlock('Block\Customer\Layout\Head')->toHtml(); ?>
    
-   <?php echo $this->createBlock('Block\\Customer\\Layout\\Head')->toHtml() ; ?>
-
    <div align="center" style="margin-top:10px;" >
  <table border="0" cellspacing="0" style="width: 100%" >
    <tr>
    	
-    <td style="height: 60px;background-color: #555555" >
+    <td>
     	
       <?php echo $this->getChild('header')->toHtml(); ?>
 
     </td>
    </tr>
    <tr>
-     <td><?php echo $this->createBlock('Block\\Customer\\Layout\\Message')->toHtml(); ?></td>
+     <td><?php echo $this->createBlock('Block\\Core\\Layout\\Message')->toHtml(); ?></td>
    </tr>
    <tr>
    	
-   	 <td  style="overflow: auto;padding: 20px" align="center" id="content"  >
+   	 <td  style='' id="content"  >
       <?php echo $this->getChild('content')->toHtml(); ?>
    	 </td>
 
    </tr>
    <tr>
    	
-     <td style="height: 50px" >
+     <td style="" >
           
       <?php echo $this->getChild('footer')->toHtml() ; ?>
 

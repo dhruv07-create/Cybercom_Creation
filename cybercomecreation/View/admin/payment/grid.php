@@ -1,3 +1,4 @@
+
 <?php
 
   $obj=\Mage::getModel("Model\\Payment");

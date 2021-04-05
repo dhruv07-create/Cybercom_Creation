@@ -11,23 +11,22 @@ class Option extends \Controller\Core\Admin
     {
     	try {
 
-             echo "<pre>";
-
-             print_r($_POST);
            $optionData=$this->getRequest()->getPost();
     		
           if($this->getRequest()->isPost())
-          {
-          	 $modelOption=\Mage::getModel('Model\\Attribute\\Option');
+          {  
+            echo '1';
+          	 $modelOption=\Mage::getModel("Model\\Attribute\\Option");
              $attribute=\Mage::getModel("Model\\Attribute");
              
              if($id=$this->getRequest()->getGet('id'))
-             {
+             {  
+              echo '2';
                 if(array_key_exists('Exist',$optionData))
                 {
-
+                 echo '3';
                 $existingData=$optionData['Exist'];
-                $attribute->attributeId=$id;
+                $attribute->load($id);
                 $options=$attribute->getOptions();
                 $optionsId=[];
 
@@ -49,6 +48,7 @@ class Option extends \Controller\Core\Admin
                    {
                      if($modelOption->delete($optionId))
                      {
+                      echo '5';
                          $this->getMessage()->setSuccess('Update|Insert Successfully');
                      }
                   }
@@ -60,19 +60,20 @@ class Option extends \Controller\Core\Admin
 
               if(array_key_exists('New',$optionData))
               {
-
+                 echo 4;
                   $newOptionData=$optionData['New']['name'];
 
                   foreach ($newOptionData as $key => $option) 
-                  {
+                  {    
+                    $modelOption=\Mage::getModel('Model\\Attribute\\Option');
+
                       $modelOption->attributeId=$id;
                       $modelOption->name=$option;
                       $modelOption->sortOrder=$optionData['New']['sortOrder'][$key];
 
-                      echo '<pre>';
-                      print_r($modelOption);
                       if($modelOption->save())
                       {
+                        echo 6;
                         $this->getMessage()->setSuccess('Update|Insert Successfully');
                       }
                   }
@@ -80,9 +81,7 @@ class Option extends \Controller\Core\Admin
              }
 
              }
-
            $this->redirect('edit','admin\attribute',null,true);  
-          
     	} catch (Exception $e) {
     		  $this->getMessage()->setFailer($e->getMessage());
 

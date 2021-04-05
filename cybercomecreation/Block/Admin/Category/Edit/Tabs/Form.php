@@ -49,7 +49,7 @@ class Form extends \Block\Core\Table
    }
 
 
-    public function getCategoryOption()
+   public function getCategoryOption()
    {
        $category=\Mage::getModel('Model\\Category');
        $option = $category->getAdapter()->connection()->fetchPairs('select categoryId,name from category;');

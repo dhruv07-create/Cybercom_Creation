@@ -13,10 +13,11 @@ namespace Controller\Admin;
   public function gridAction(){
 
      try{
-
+           $pager=\Mage::getController('Controller\Core\Pager');
+           $id=$this->getRequest()->getGet('page');
+           $pager->setCurrentPage($id);
            $layout=$this->getLayout();
-           $layout->setTemplate('./View/core/layout/one_column.php');
-           $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Customer\\Grid'),'grid');
+           $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Customer\\Grid')->setPager($pager),'grid');
           echo $layout->toHtml();
       
    
@@ -116,16 +117,16 @@ namespace Controller\Admin;
             {         
                 if($id1=$this->getRequest()->getGet('id'))
                 {
+                   $customer=\Mage::getModel('Model\Customer')->load($id1); 
                    if($this->getRequest()->getGet('t')=='a'){
-
                       $model=$this->getModelObj()->setTableName('customer_address')->setPrimaryKey('id');
-
                       $shipping=$this->getRequest()->getPost('shipping');
 
                       $model->setData($shipping);
 
                       $model->addresstype='shipping';
                       $model->customerId=$id1;
+                      $model->firstname=$customer->firstname;
                       $model->save();
 
                       $model->unsetData();
@@ -136,8 +137,10 @@ namespace Controller\Admin;
 
                       $model->addresstype='billing';
                       $model->customerId=$id1;
+                      $model->firstname=$customer->firstname;
 
                       $model->save();
+                      
                       $this->redirect('grid');
 
               }elseif ($this->getRequest()->getGet('t')=='u') {
@@ -146,10 +149,12 @@ namespace Controller\Admin;
 
 
                   $shipping=$this->getRequest()->getPost('shipping');
+                  $shipping['firstname']=$customer->firstname;
 
                   $model->update($shipping,['customerId'=>$id1,'addresstype'=>'shipping']);
 
                   $billing=$this->getRequest()->getPost('billing');
+                  $billing['firstname']=$customer->firstname;
                   $model->update($billing,['customerId'=>$id1,'addresstype'=>'billing']);
 
                   $this->redirect('grid');
@@ -226,7 +231,7 @@ namespace Controller\Admin;
     
    }
 
-    $pre= new \Model\Customer() ;
+    $pre=\Mage::getModel("Model\Customer") ;
 
     if($pre->delete($id))
     {
@@ -244,6 +249,15 @@ namespace Controller\Admin;
   }
 
  }
+   public function filterAction()
+   {    
+       $filter=\Mage::getModel('Model\Core\Filter'); 
+         
+        $filter->setFilter($this->getRequest()->getPost('filter'));
+      
+      $this->redirect('grid');
+
+   }
 
  }
 

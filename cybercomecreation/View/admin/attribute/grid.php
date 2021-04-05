@@ -1,9 +1,12 @@
 <?php
  
- $data=$this->getAttributes();
-
+  $data=$this->getAttributes();
+ 
 ?>
 
+<?php 
+ $pager = $this->getPager(); 
+ ?>
 
 <dir>
 
@@ -23,6 +26,7 @@
 				<th>InputType</th>
 				<th>BackendType</th>
 				<th>SortOrder</th>
+				<th>BackEndModel</th>
 				<th>Action</th>
 			</tr>
 		</thead>	
@@ -34,6 +38,7 @@
 				<td><?php echo $attribute->code ;?></td>
 				<td><?php echo $attribute->inputType ;?></td>
 				<td><?php echo $attribute->backendType ;?></td>
+				<td><?php echo $attribute->backendModel ;?></td>
 				<td><?php echo $attribute->sortOrder ;?></td>
 				<td>
 					
@@ -46,4 +51,17 @@
 
 	</tbody>
 </table>
+
+<?php if($pager->getStart()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getStart()],true); ?>" >START</a>
+<?php endif; ?>	
+<?php if($pager->getPrevious()): ?>
+<a class="btn btn-secondary"  href="<?php echo $this->getUrl(null,null,['page'=>$pager->getPrevious()],true); ?>">PREVIOUS</a>
+<?php endif; ?>
+<?php if($pager->getNext()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getNext()],true); ?>">NEXT</a>
+<?php endif; ?>
+<?php if($pager->getEnd()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getEnd()],true); ?>">END</a>
+<?php endif; ?>
 </dir>

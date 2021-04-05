@@ -28,7 +28,7 @@ class Tabs extends \Block\Core\Table
   {
   	 return $this;
   }
-
+   
 }
 
 

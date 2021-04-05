@@ -17,7 +17,7 @@ namespace Controller\Admin\Product;
                    $imageTmp=$_FILES['image']['tmp_name'];
                    $imageType=explode('.',$imageName);
                    $imageType=end($imageType);
-                   $des='images/'.$imageName;
+                   $des='media/product'.$imageName;
 
 
                    if(in_array(strtolower($imageType),$types))
@@ -38,8 +38,8 @@ namespace Controller\Admin\Product;
                    $imageName[count($imageName)-2]=$imageName[count($imageName)-2].''.$imgId;
                    $imageName=implode('.',$imageName);
 
-                   rename($des,'images/'.$imageName);
-                   $des='images/'.$imageName;
+                   rename($des,'media/product'.$imageName);
+                   $des='media/product'.$imageName;
                    $model->image=$des;
 
                    $model->save();

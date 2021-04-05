@@ -13,9 +13,11 @@ class Shipping extends \Controller\Core\Admin {
 
        try {
 
+         $pager=\Mage::getController("Controller\\Core\\Pager");
+         $pager->setCurrentPage($this->getRequest()->getGet('page'));
             $layout=$this->getLayout();
             $layout->setTemplate('./View/Core/layout/one_column.php');
-            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Shipping\\Grid'),'grid');
+            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Shipping\\Grid')->setPager($pager),'grid');
            echo $layout->toHtml();
         
            } catch (Exception $e) {
@@ -113,6 +115,8 @@ class Shipping extends \Controller\Core\Admin {
 
                 $pre->$primary=$id;
 
+                 $pre->updateddate=date("d-F-Y");
+
                 if($pre->save())
                 {
 
@@ -176,7 +180,16 @@ class Shipping extends \Controller\Core\Admin {
             }
           	 
        }
+    
 
+  public function filterAction()
+   {
+      $Filter=\Mage::getModel('Model\Core\filter');
+
+      $Filter->setFilter($this->getRequest()->getPost('filter'));
+
+      $this->redirect('grid');
+   }
 
 }
 

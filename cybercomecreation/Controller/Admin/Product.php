@@ -14,9 +14,11 @@ namespace Controller\Admin;
 	 public function gridAction(){
 
       try
-      {
+      { $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);   
             $layout=$this->getLayout();
-            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Product\\Grid'),'grid');
+            $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Product\\Grid')->setPager($pager),'grid');
             echo $layout->toHtml();
 
       }
@@ -130,7 +132,7 @@ namespace Controller\Admin;
         {
           $pre= \Mage::getModel('Model\\Product');
           $id=$this->getRequest()->getGet('id');
-
+                                                       
            if($this->getRequest()->getPost('Update')!=null)
            {
              $productAtt=$this->getRequest()->getPost('productAtt');
@@ -144,10 +146,27 @@ namespace Controller\Admin;
                     throw new Exception("Error NOO DATA FOUND", 1);
                     
                  }
+                  $data=[];
+                 foreach ($productAtt as $key => $value) 
+                 {
+                     if(is_array($value))
+                     {
+                        $data[$key]=implode(',',$value);
+                     }else{
+                       $data[$key]=$value;
+                     }
 
-                echo '<pre>';
+                 }
 
-                print_r($productAtt); die();
+                 $pre->setData($data); 
+                   
+                  if($pre->save())
+                  {
+                    $this->getMessage()->setSuccess('updated');
+
+                  }
+               
+                    $this->redirect('edit',null,null,true);
 
               }
            }
@@ -386,6 +405,15 @@ namespace Controller\Admin;
              $this->redirect('edit',null,null,true);  
           }
      }
+
+    public function filterAction()
+   {
+      $Filter=\Mage::getModel('Model\Core\filter');
+
+      $Filter->setFilter($this->getRequest()->getPost('filter'));
+
+      $this->redirect('grid');
+   }
    
    }
 ?>

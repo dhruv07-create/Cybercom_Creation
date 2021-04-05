@@ -5,8 +5,8 @@
 
 			      foreach ($this->getChildren() as $key => $value) 
 			      {
-			            echo $value->toHtml(); 
-			      }
+			            echo $value->toHtml() ."<br>"; 
+			      } 
 
              }
  

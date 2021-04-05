@@ -3,6 +3,9 @@
 $data=$this->getCmsData();
 
 ?>
+<?php 
+ $pager = $this->getPager(); 
+ ?>
 
 <h5 style="float: left">CMS</h5><br>
 <hr>
@@ -44,4 +47,16 @@ $data=$this->getCmsData();
 
 
 	</table>
+<?php if($pager->getStart()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getStart()],true); ?>" >START</a>
+<?php endif; ?>	
+<?php if($pager->getPrevious()): ?>
+<a class="btn btn-secondary"  href="<?php echo $this->getUrl(null,null,['page'=>$pager->getPrevious()],true); ?>">PREVIOUS</a>
+<?php endif; ?>
+<?php if($pager->getNext()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getNext()],true); ?>">NEXT</a>
+<?php endif; ?>
+<?php if($pager->getEnd()): ?>
+<a class="btn btn-secondary" href="<?php echo $this->getUrl(null,null,['page'=>$pager->getEnd()],true); ?>">END</a>
+<?php endif; ?>
 </div>

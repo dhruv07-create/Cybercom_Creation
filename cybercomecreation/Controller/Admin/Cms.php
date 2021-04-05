@@ -6,10 +6,13 @@ namespace Controller\Admin;
 class Cms extends \Controller\Core\Admin
 {	
 	 public function gridAction()
-	 {
+      {
+         $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
 	 	 $layout=$this->getLayout();
 	 	 $layout->setTemplate('./View/Core/layout/one_column.php');
-	 	 $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Cms\\Grid'),'content');
+	 	 $layout->getContent()->addChild(\Mage::getBlock('Block\\Admin\\Cms\\Grid')->setPager($pager),'content');
 	 	echo $layout->toHtml();
 	 }
 
@@ -96,6 +99,14 @@ class Cms extends \Controller\Core\Admin
 	 	 	echo $e->getMessage();
 	 	 }
 	 }
+
+	 public function filterAction()
+	 {
+	    $Filter=\Mage::getModel('Model\Core\Filter');
+	    $Filter->setFilter($this->getRequest()->getPost('filter'));	
+	    $this->redirect('grid');
+	 }
+
 }
 
 ?>

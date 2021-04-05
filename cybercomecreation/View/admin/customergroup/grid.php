@@ -5,6 +5,7 @@
 ?>
 
 
+
 <head>
 <body>
 
@@ -56,9 +57,9 @@
   
     ?>
  
-    </table>
+  </table>
 
-     </div> 
+   </div> 
 
  </content>
 

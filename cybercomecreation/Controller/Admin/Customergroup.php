@@ -13,10 +13,12 @@ namespace Controller\Admin;
   public function gridAction(){
 
      try{
-
+        $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
            $layout=$this->getLayout();
            $layout->setTemplate('./View/core/layout/one_column.php');
-           $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Customergroup\\Grid'),'grid');
+           $layout->getContent()->addChild(\Mage::getModel('Block\\Admin\\Customergroup\\Grid')->setPager($pager),'grid');
           echo $layout->toHtml();
       
    
@@ -190,6 +192,12 @@ namespace Controller\Admin;
     
   }
 
+ }
+ public function filterAction()
+ {
+   $filter=\Mage::getModel("Model\Core\Filter");
+   $filter->setFilter($this->getRequest()->getPost('filter'));
+   $this->redirect('grid');
  }
 
  }

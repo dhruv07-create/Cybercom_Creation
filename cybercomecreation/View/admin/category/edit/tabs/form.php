@@ -17,7 +17,7 @@
     <?php foreach($categoryOption as $categoryId => $pathName): ?>
         
         if($category->categoryId != $categoryId){
-       <option value="<?php echo $categoryId ; ?>" ><?php echo $pathName; ?></option>
+       <option value="<?php echo $categoryId ; ?>" <?php if($category->parentId==$categoryId){ echo 'selected' ;} ?> ><?php echo $pathName; ?></option>
      }
 
      <?php endforeach; ?> 
@@ -50,6 +50,8 @@
    <br><br>
    Details:
    <input type="text" name="category[description]" value="<?php echo $category->description ;?>" ><br><br>
+
+    <input type="file" name="image"><br><br>
 
    <input type="submit" name="s" class="btn btn-success" >
  </form>

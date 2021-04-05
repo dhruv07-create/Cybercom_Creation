@@ -52,7 +52,7 @@ class Edit extends \Block\Core\Table
   			'varchar(90)'=>'Varchar',
   			'int'=>'Int',
   			'decimal'=>'Decimal',
-  			'text'=>'Text'          
+  			'varchar(225)'=>'Text'          
  
     	];
     }

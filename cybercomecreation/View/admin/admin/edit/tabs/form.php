@@ -24,7 +24,8 @@
    </select>
    <br><br>
      
-   <input type="submit" name="s" class="btn btn-primary" >
+   <input type="submit" name="s" class="btn btn-primary" value="save">
+   <?php /* <input disabled type="button" name="s" class="btn btn-primary" onclick="object.setForm(this).load()"  value="s"> */ ?>
 
  </form>
 

@@ -36,6 +36,29 @@ class Form extends \Block\core\Table
         return $this->modelObj;
 	}
 
+    public function getCategoryOptions()
+    {
+    	$cateogry=\Mage::getModel('Model\category');
+    	$o="SELECT categoryId,name FROM category";
+    	$options=$cateogry->getAdapter()->fetchPairs($o);
+    	
+    	$que="SELECT categoryId,pathId FROM category";
+    	$cateogryOption=$cateogry->getAdapter()->fetchPairs($que);
+
+    	foreach ($cateogryOption as $categoryId => &$pathId) {
+    		   $pathId=explode('=',$pathId); 
+    		   foreach ($pathId as $key => &$id) {
+    		    	# code...
+    		     if(array_key_exists($id,$options))
+    		     {
+    		     	 $id=$options[$id];
+    		     }
+    		    } 
+              $pathId=implode('=',$pathId);
+    		}
+
+    	return $cateogryOption;		
+    }
 	
 }
 ?>

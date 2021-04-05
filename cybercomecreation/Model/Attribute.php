@@ -16,9 +16,9 @@ namespace Model;
 
      public function getOptions()
      {
-     	$q='select * from attribute_option where attributeId='.$this->attributeId;
+     	$model=\Mage::getModel('Model\\'.$this->backendModel)->setAttribute($this)->getOptions();
 
-     	return $this->fetchAll($q);
+          return $model;
      }
  }
 

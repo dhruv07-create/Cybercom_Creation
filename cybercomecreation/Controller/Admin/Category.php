@@ -16,9 +16,11 @@
    {
   
     try {
-      
+     $pager=\Mage::getController('Controller\Core\Pager');
+        $id=$this->getRequest()->getGet('page');
+        $pager->setCurrentPage($id);
         $layout1= $this->getLayout();
-        $layout1->getContent()->addChild( \Mage::getBlock('Block\\Admin\\Category\\Grid'),'grid');
+        $layout1->getContent()->addChild( \Mage::getBlock('Block\\Admin\\Category\\Grid')->setPager($pager),'grid');
        echo $layout1->toHtml();
           
       } catch (Exception $e) 
@@ -140,12 +142,27 @@
                    $categoryPath=$pro->pathId;
 
                    $pro->setData($this->getRequest()->getPost('category')); 
+
+                    $types=['jpg','png','jpeg','jfif'];
+                 $imageName=$_FILES['image']['name'];
+                 $imageTmp=$_FILES['image']['tmp_name'];
+                 $imageType=explode('.',$imageName);
+                 $imageType=end($imageType);
+                 $des='media/category/'.$imageName;
+
+                 if(in_array(strtolower($imageType),$types))
+                   {
+
+                    move_uploaded_file($imageTmp,$des);
+                    
+                    $pro->image=$des;
+ 
+                   }
                   
 
                    if($pro->save())
                    {
-
-                 $message->setSuccess('Update Successfully');
+                       $message->setSuccess('Update Successfully');
                    } 
 
                  $pro->updatePathId();
@@ -162,6 +179,21 @@
                $pro->setData($this->getRequest()->getPost('category'));
                $date=date("d-F-Y");
                $pro->createddate=$date;
+                $types=['jpg','png','jpeg','jfif'];
+                 $imageName=$_FILES['image']['name'];
+                 $imageTmp=$_FILES['image']['tmp_name'];
+                 $imageType=explode('.',$imageName);
+                 $imageType=end($imageType);
+                 $des='media/category/'.$imageName;
+
+                 if(in_array(strtolower($imageType),$types))
+                   {
+
+                    move_uploaded_file($imageTmp,$des);
+
+                   $pro->image=$des;
+
+                   }
 
               if($pro->save())
               {
@@ -170,7 +202,7 @@
            
                $pro->updatePathId();
                
-                $this->redirect('grid');
+               $this->redirect('grid');
             }
 
             } 
@@ -204,10 +236,12 @@
         $pre->load($id);
         $parent=$pre->parentId;
        
-        $pathId=$pre->pathId;    
+        $pathId=$pre->pathId;
+        $image=$pre->image;    
       
         if($pre->delete())
           { 
+            unlink($image);
             $message->setSuccess('Successfully Deletion Operation');
           }        
  
@@ -239,7 +273,16 @@
 
    }
 
- 
+  public function filterAction()
+   {    
+       $filter=\Mage::getModel('Model\Core\Filter'); 
+         
+        $filter->setFilter($this->getRequest()->getPost('filter'));
+          
+          print_r($filter->getFilters());
+
+      $this->redirect('grid');
+   }
  
 }
 

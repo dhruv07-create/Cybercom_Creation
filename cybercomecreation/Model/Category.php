@@ -40,8 +40,8 @@ namespace Model;
                         $this->save();
                      }
                   }else{
-
-                    $pro->pathId=$pro->categoryId;
+                     
+                    $this->pathId=$this->categoryId;
                     $this->save();
                   }
          
@@ -49,21 +49,41 @@ namespace Model;
 
       public function updateChildrenPathIds($categoryPath)
          {
-               $que="select * from category where pathId LIKE '{$categoryPath}%'";
+           $que="select * from category where pathId LIKE '{$categoryPath}%'";
 
-                $children = $this->fetchAll($que);
+            $children = $this->fetchAll($que);
 
 
-               if($children->getData()){
+           if($children->getData()){
 
-                foreach ($children->getData() as $key => $value) {
-                    
-                       $value->updatePathId();
-                }
-                  
-               }   
-         }   
+            foreach ($children->getData() as $key => $value) {
+                
+                   $value->updatePathId();
+            }
+              
+           }   
+       }
 
+  public function getBanner()
+  {   
+      $customerImg=\Mage::getModel('Model\Category\Image');
+      $q="select * from {$customerImg->getTableName()} where categoryId={$this->categoryId} AND active='y' AND banner='y';";
+      return $customerImg->fetchRow($q);  
+  }   
+
+  public function getIcon()
+  {   
+      $customerImg=\Mage::getModel('Model\Category\Image');
+      $q="select * from {$customerImg->getTableName()} where categoryId={$this->categoryId} AND icon='y';";
+      return $customerImg->fetchRow($q);  
+  }   
+   
+ public function getBase()
+  {   
+      $customerImg=\Mage::getModel('Model\Category\Image');
+      $q="select * from {$customerImg->getTableName()} where categoryId={$this->categoryId} AND base='y';";
+      return $customerImg->fetchRow($q);  
+  } 
  }
 
 ?>

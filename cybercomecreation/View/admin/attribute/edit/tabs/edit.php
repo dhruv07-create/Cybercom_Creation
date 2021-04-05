@@ -23,7 +23,8 @@ BackEndType:
 </select><br><br>
 ShortOrder:
 <input  value="<?php echo $attribute->sortOrder ;?>" type="number"  name="attribute[sortOrder]"><br><br>
-
+BackEndModel:
+<input type="text" name="attribute[backendModel]" value="<?php echo $attribute->backendModel ; ?>" >
 <input onclick="save(this)" type="submit" name="submit">
 </form>
 

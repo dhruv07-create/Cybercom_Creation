@@ -14,9 +14,10 @@ class Media extends \Block\Core\Table
   public function setMedia()
    {
           $model=\Mage::getModel('Model\\Product')->setPrimaryKey('imgId')->setTableName('productimg');
-
+        
+     
          $this->collection=$model->fetchAll("select * from productimg where productId=".$this->getTableRow()->productId);
- 
+            
          return $this;     
    }		
 

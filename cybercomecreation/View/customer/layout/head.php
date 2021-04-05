@@ -1,9 +1,35 @@
-<head>
-	<title></title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>Daily Shop | Home</title>
+    
 
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
-   
-    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+    <!-- Font awesome -->
+    <link href="./Skin/Customer/css/font-awesome.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="./Skin/Customer/css/bootstrap.css" rel="stylesheet">   
+    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
+    <link href="./Skin/Customer/css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+    <!-- Product view slider -->
+    <link rel="stylesheet" type="text/css" href="./Skin/Customer/css/jquery.simpleLens.css">    
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" href="./Skin/Customer/css/slick.css">
+    <!-- price picker slider -->
+    <link rel="stylesheet" type="text/css" href="./Skin/Customer/css/nouislider.css">
+    <!-- Theme color -->
+    <link id="switcher" href="./Skin/Customer/css/theme-color/default-theme.css" rel="stylesheet">
+    <!-- <link id="switcher" href="css/theme-color/bridge-theme.css" rel="stylesheet"> -->
+    <!-- Top Slider CSS -->
+    <link href="./Skin/Customer/css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
 
-</head>
+    <!-- Main style sheet -->
+    <link href="./Skin/Customer/css/style.css" rel="stylesheet">    
+
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    
+
+  </head>
